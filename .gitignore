@@ -32,3 +32,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+/.idea/workspace.xml
+/pnpm-lock.yaml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/vcs.xml
