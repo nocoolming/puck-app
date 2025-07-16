@@ -2,12 +2,18 @@ import type {Config} from "@measured/puck";
 import TextBlock from "./app/component/puck/TextBlock";
 import ImageBlock from "./app/component/puck/ImageBlock";
 import ContainerBlock from "./app/component/puck/ContainerBlock";
+import ListBlock from "./app/component/puck/ListBlock";
 
 type Props = {
     HeadingBlock: { title: string };
     TextBlock: { text: string };
     ImageBlock: { url: string, alt: string, width?: string, height?: string };
     ContainerBlock: {};
+    ListBlock: { 
+        items: Array<{ id: string; title: string; description?: string }>;
+        listType?: 'ordered' | 'unordered';
+        title?: string;
+    };
 };
 
 export const config: Config<Props> = {
@@ -57,8 +63,42 @@ export const config: Config<Props> = {
             )
         },
         ContainerBlock: {
-
             render: () => <ContainerBlock/>,
+        },
+        ListBlock: {
+            fields: {
+                title: { type: 'text' },
+                listType: {
+                    type: 'select',
+                    options: [
+                        { label: '无序列表', value: 'unordered' },
+                        { label: '有序列表', value: 'ordered' }
+                    ]
+                },
+                items: {
+                    type: 'array',
+                    arrayFields: {
+                        title: { type: 'text' },
+                        description: { type: 'textarea' }
+                    },
+                    getItemSummary: (item) => item.title || '新项目'
+                }
+            },
+            defaultProps: {
+                title: '列表标题',
+                listType: 'unordered' as const,
+                items: [
+                    { id: '1', title: '第一项', description: '这是第一项的描述' },
+                    { id: '2', title: '第二项', description: '这是第二项的描述' }
+                ]
+            },
+            render: ({ items, listType, title }) => (
+                <ListBlock 
+                    items={items} 
+                    listType={listType} 
+                    title={title} 
+                />
+            )
         }
     },
 
