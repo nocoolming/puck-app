@@ -1,5 +1,22 @@
 import React from 'react';
 
+import { Slide } from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css'
+
+const spanStyle = {
+    padding: '20px',
+    background: '#efefef',
+    color: '#000000'
+}
+
+const divStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundSize: 'cover',
+    height: '400px'
+}
+
 interface SlideItem {
     id: string;
     imageUrl: string;
@@ -17,19 +34,22 @@ const SlideBlock: React.FC<SlideItemProps> = ({
     title,
 }) => {
     return (
-        <div>
-                {/* <h2>{title}</h2> */}
-            <ul className="flex flex-row gap-3 px-3 py-2 bg-green-900">
+        <div className="flex flex-row gap-3 px-3 py-2 bg-green-900">
+            <Slide>
                 {items.map(
                     item => (
-                        <li key={item.id}>
-                            <a href={item.url}>
-                                <img src={item.imageUrl} alt={item.alt} />
-                            </a>
-                        </li>
+                        <div key={item.id}>
+                            <div style={{
+                                ...divStyle,
+                                'backgroundImage': `url(${item.imageUrl})`
+                            }}>
+                                    <span style={spanStyle}>{item.alt}</span>
+                            </div>
+                        </div>
                     )
                 )}
-            </ul>
+            </Slide>
+
         </div>
     )
 }
