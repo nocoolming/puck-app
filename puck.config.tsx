@@ -1,15 +1,16 @@
-import type {Config} from "@measured/puck";
+import type { Config } from "@measured/puck";
 import TextBlock from "./app/component/puck/TextBlock";
 import ImageBlock from "./app/component/puck/ImageBlock";
 import ContainerBlock from "./app/component/puck/ContainerBlock";
 import ListBlock from "./app/component/puck/ListBlock";
+import SlideBlock from './app/component/puck/SlideBlock';
 
 type Props = {
     HeadingBlock: { title: string };
     TextBlock: { text: string };
     ImageBlock: { url: string, alt: string, width?: string, height?: string };
     ContainerBlock: {};
-    ListBlock: { 
+    ListBlock: {
         items: Array<{ id: string; title: string; description?: string }>;
         listType?: 'ordered' | 'unordered';
         title?: string;
@@ -20,32 +21,32 @@ export const config: Config<Props> = {
     components: {
         HeadingBlock: {
             fields: {
-                title: {type: "text"},
+                title: { type: "text" },
             },
             defaultProps: {
                 title: "Heading",
             },
-            render: ({title}) => (
-                <div style={{padding: 64}}>
+            render: ({ title }) => (
+                <div style={{ padding: 64 }}>
                     <h1>{title}</h1>
                 </div>
             ),
         },
         TextBlock: {
             fields: {
-                text: {type: 'text'},
+                text: { type: 'text' },
             },
             defaultProps: {
                 text: 'test',
             },
-            render: ({text}) => (<TextBlock text={text}/>),
+            render: ({ text }) => (<TextBlock text={text} />),
         },
         ImageBlock: {
             fields: {
-                url: {type: 'text'},
-                alt: {type: 'text'},
-                width: {type: 'text'},
-                height: {type: 'text'},
+                url: { type: 'text' },
+                alt: { type: 'text' },
+                width: { type: 'text' },
+                height: { type: 'text' },
             },
             defaultProps: {
                 url: '',
@@ -53,7 +54,7 @@ export const config: Config<Props> = {
                 width: 'full',
                 height: 'full',
             },
-            render: ({url, alt, width, height}) => (
+            render: ({ url, alt, width, height }) => (
                 <ImageBlock
                     url={url}
                     alt={alt}
@@ -63,7 +64,7 @@ export const config: Config<Props> = {
             )
         },
         ContainerBlock: {
-            render: () => <ContainerBlock/>,
+            render: () => <ContainerBlock />,
         },
         ListBlock: {
             fields: {
@@ -78,6 +79,7 @@ export const config: Config<Props> = {
                 items: {
                     type: 'array',
                     arrayFields: {
+                        id: { type: 'text' },
                         title: { type: 'text' },
                         description: { type: 'textarea' }
                     },
@@ -93,12 +95,39 @@ export const config: Config<Props> = {
                 ]
             },
             render: ({ items, listType, title }) => (
-                <ListBlock 
-                    items={items} 
-                    listType={listType} 
-                    title={title} 
+                <ListBlock
+                    items={items}
+                    listType={listType}
+                    title={title}
                 />
             )
+        },
+        SlideBlock: {
+            fields: {
+                items: {
+                    type: 'array',
+                    arrayFields: {
+                        id: { type: 'text' },
+                        url: { type: 'text' },
+                        imageUrl: { type: 'text' },
+                        alt: { type: 'text' },
+                    },
+                }
+            },
+            defaultProps: {
+                items: [
+                    {
+                        id: '1',
+                        imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7jKRbG9OXqLhVlecld0xNrZJwHeiSwwc1Cg&s',
+                        url: 'x.com',
+                        alt: 'Tiger',
+                    }
+                ]
+            },
+            render: ({  items }) => (
+                <SlideBlock items={items}  />
+            )
+
         }
     },
 
