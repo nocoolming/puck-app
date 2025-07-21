@@ -20,7 +20,7 @@ const ListBlock: React.FC<ListBlockProps> = ({
     const ListTag = listType === 'ordered' ? 'ol' : 'ul';
 
     return (
-        <div style={{ padding: '20px', margin: '10px 0' }}>
+        <div style={{ padding: '20px',  }}>
             {title && <h3 style={{ marginBottom: '15px' }}>{title}</h3>}
             <ListTag style={{
                 paddingLeft: '20px',

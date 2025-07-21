@@ -41,7 +41,17 @@ export default async function Page({
     return notFound();
   }
 
-  return <Client data={data} />;
+  const url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0C0w2UNVTZoidpz0d6LYcncnsSRC7sJqs4w&s';
+
+  return (
+    <div className="w-full flex justify-center">
+      <div className="container ">
+
+        <Client path={path} data={data || {}} />
+      </div>
+    </div>
+
+  );
 }
 
 // Force Next.js to produce static pages: https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamic
